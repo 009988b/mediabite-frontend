@@ -1,0 +1,16 @@
+#embedTourContainer {
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+}
+
+footer {
+    background: solid #dedede;
+}
+
+#footer p {
+    background-color: rgba(222,222,222,1);
+    padding: 0px;
+    margin: 10px;
+    font-family: "Helvetica";
+}
