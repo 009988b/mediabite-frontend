@@ -69,7 +69,7 @@ export default function Contact() {
             console.log(error);
         });*/
         console.log(info);
-        axios.post("/send", info,{
+        axios.post("https://mediabite-backend.herokuapp.com/send", info,{
             headers: {
                 'Content-Type': 'application/json',
         }}).then(
