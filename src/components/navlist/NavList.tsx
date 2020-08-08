@@ -21,7 +21,7 @@ export default function NavList(props: any) {
                     <Toolbar id="tb" variant="regular">
                         <img src={logo} alt=""></img>
                         <Box m={1} />
-                        <ButtonGroup size="large" variant="contained" id="btn-group">
+                        <ButtonGroup size="medium" variant="contained" id="btn-group">
                             <Button id="home-btn" href="/home">Home</Button>
                             <Button id="contact-btn" href="/contact">Pricing</Button>
                             <Button id="gallery-btn" href="/gallery">Gallery</Button>
