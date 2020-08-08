@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavList from '../navlist/NavList';
-import bg from './test.jpg';
+import bg from './test-resized.jpg';
 import logo from './logo-inverted.png';
 import './Contact.css';
 import { TextField, Button } from '@material-ui/core';
@@ -8,7 +8,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import MessageSent from '../messageSent/MessageSent';
-
+import bg2 from './seamless-panoramic.jpg';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -104,7 +104,9 @@ export default function Contact() {
     const classes = useStyles();
     if (submitted) {
         return (
-            <MessageSent name={name}/>
+            <div>
+                <MessageSent name={name} img={bg2}/>
+            </div>
         )
     } else return (
         <div>
@@ -132,10 +134,9 @@ export default function Contact() {
                 <Button variant="contained" color="primary" onClick={addMessage}>Send Message</Button>
                 </div>
             </div>
-            
             <div id="footer-content">
                 <footer id="footer">
-                    <p id="fuck">Site created by Sean O. <a href="https://github.com/009988b">github</a></p>
+                    <p id="f"><br />Site created by Sean O. <a href="https://github.com/009988b">github</a></p>
                 </footer>    
             </div>
             </body>

@@ -1,15 +1,14 @@
 import React from 'react';
 import NavList from '../navlist/NavList';
 import logo from '../home/images/logo-inverted2.png';
-import bg from '../home/images/seamless-panoramic.jpg';
 import { Button } from '@material-ui/core';
 
 export default function MessageSent(props: any) {
     return (
         <body>
-                <NavList />
+            <NavList />
                 <div id="bg-container">
-                    <img id="bg-img" src={bg} alt=""></img>
+                    <img id="bg-img" src={props.img} alt=""></img>
                     <div id="bg-txt">
                         <img id="logo-img" src={logo} height="160px"></img>
                     </div>
@@ -20,7 +19,7 @@ export default function MessageSent(props: any) {
                         <br />
                         <Button variant="contained" href="/home">Back to home</Button>
                         <br />
-                    </div>
+            </div>
         </body>
     );
 }

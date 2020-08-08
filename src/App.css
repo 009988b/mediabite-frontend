@@ -31,7 +31,7 @@
   transform: translateX(-50%);
   z-index: 0;
   mask-image: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 22%);
-  max-height: 760px;
+  max-height: 800px;
 }
 
 #newTab {
@@ -71,5 +71,11 @@ iframe {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #pano {
+    max-height: 450px;
   }
 }

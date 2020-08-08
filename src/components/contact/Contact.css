@@ -8,6 +8,12 @@
     max-height: 800px;
 }
 
+@media screen and (max-width: 800px) {
+    #bg-img {
+      max-height: 450px;
+    }
+  }
+
 form {
     margin: 8px;
 }
