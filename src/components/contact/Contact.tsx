@@ -6,6 +6,8 @@ import './Contact.css';
 import { TextField, Button } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import MessageSent from '../messageSent/MessageSent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,20 +28,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export default function Contact() {
-    const [fname, setFName] = React.useState("");
-    const [lname, setLName] = React.useState("");
+    const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [subject, setSubject] = React.useState("");
     const [msg, setMsg] = React.useState("");
 
-    const [fNameEmpty, setFNameEmpty] = React.useState(false);
-    const [lNameEmpty, setLNameEmpty] = React.useState(false);
+    const [nameEmpty, setNameEmpty] = React.useState(false);
     const [emailEmpty, setEmailEmpty] = React.useState(false);
     const [subjectEmpty, setSubjectEmpty] = React.useState(false);
     const [msgEmpty, setMsgEmpty] = React.useState(false);
 
+    const [submitted, setSubmitted] = React.useState(false);
 
     const addMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
+        let validInputs: boolean = false;
         function validateEmail(email: string) {
             const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
             return re.test(email.toLowerCase());
@@ -47,39 +49,47 @@ export default function Contact() {
         event.preventDefault();
         //Lazy implementation -- I'm still learning React 
         const info = {
-            'first_name' : fname,
-            'last_name' : lname,
+            'name' : name,
             'email' : email,
             'subject' : subject,
             'message' : msg
-            /*response: [
-                {'first_name' : fname},
-                {'last_name' : lname},
-                {'email' : email},
-                {'subject' : subject},
-                {'message' : msg}
-            ],    */
         }
-        //POST
-        /*axios.post("/send", JSON.stringify(info))
-        .then(response => {
-            console.log("g")
-            console.log(response);
-        }).catch(error => {
-            console.log(error);
-        });*/
-        console.log(info);
-        axios.post("https://mediabite-backend.herokuapp.com/send", info,{
+        if (name !== "") {
+            if (email !== "" && validateEmail(email)) {
+                if (subject !== "") {
+                    if (msg !== "") {
+                        validInputs = true;
+                    }
+                }
+            }
+        }
+        console.log(info, validInputs);
+        //if verification check && recaptcha
+        if (validInputs) {
+            var form: HTMLFormElement = (document.getElementById("form_") as HTMLFormElement);
+            form.reset();
+            axios.post("https://mediabite-backend.herokuapp.com/send", info,{
             headers: {
                 'Content-Type': 'application/json',
-        }}).then(
-            response => {
-                console.log(response);
-            }
-        )
+            }}).then(
+                response => {
+                    console.log(response);
+                }
+                
+            )
+            let a: number;
+            a = window.setTimeout(function() {
+                setSubmitted(true);
+            }, 1250);
+        }
+        
     }
     const classes = useStyles();
-    return (
+    if (submitted) {
+        return (
+            <MessageSent name={name}/>
+        )
+    } else return (
         <div>
             <body>
                 <NavList />
@@ -93,12 +103,9 @@ export default function Contact() {
                 </div>
             <div id="contact-txt">
                 <div id="contact-form">
-                <form id="form_" className={classes.root} noValidate autoComplete="off">
-                    <TextField error={fNameEmpty} id="first_name" label="First Name" variant="filled" value={fname} onChange={e => setFName(e.target.value)}/>
-                    <TextField error={lNameEmpty} id="last_name" label="Last Name" variant="filled" value={lname} onChange={e => setLName(e.target.value)}/>
-                    <br></br>   
-                </form>
                 <form id="form_" className={classes.multiLine} noValidate autoComplete="off">
+                    <TextField error={nameEmpty} id="name_field" label="Name" variant="filled" value={name} onChange={e => setName(e.target.value)}/>
+                    <br></br>
                     <TextField error={emailEmpty} id="email" label="Email" variant="filled" value={email} onChange={e => setEmail(e.target.value)}/>
                     <br></br>
                     <TextField error={subjectEmpty} id="subject" label="Subject" variant="filled" value={subject} onChange={e => setSubject(e.target.value)}/>

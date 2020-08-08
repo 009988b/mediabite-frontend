@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import Home from './components/home/Home'
 import Contact from './components/contact/Contact'
-
+import MessageSent from './components/messageSent/MessageSent'
 
 
 function App() {
