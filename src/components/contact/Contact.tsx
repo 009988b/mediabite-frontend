@@ -40,6 +40,7 @@ export default function Contact() {
 
     const [submitted, setSubmitted] = React.useState(false);
 
+    const formRef = React.useRef<HTMLFormElement>(null);
     const addMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
         let validInputs: boolean = false;
         function validateEmail(email: string) {
@@ -81,10 +82,7 @@ export default function Contact() {
         }
         
         console.log(info, validInputs);
-        //if verification check && recaptcha
         if (validInputs) {
-            var form: HTMLFormElement = (document.getElementById("form_") as HTMLFormElement);
-            form.reset();
             axios.post("https://mediabite-backend.herokuapp.com/send", info,{
             headers: {
                 'Content-Type': 'application/json',
@@ -94,6 +92,9 @@ export default function Contact() {
                 }
                 
             )
+            if (formRef.current !== null) {
+                formRef.current.reset();
+            } 
             let a: number;
             a = window.setTimeout(function() {
                 setSubmitted(true);
@@ -122,7 +123,7 @@ export default function Contact() {
                 </div>
             <div id="contact-txt">
                 <div id="contact-form">
-                <form id="form_" className={classes.multiLine} noValidate autoComplete="off">
+                <form ref={formRef} id="form_" className={classes.multiLine} noValidate autoComplete="off">
                     <TextField error={nameEmpty} id="name_field" label="Name" variant="filled" value={name} onChange={e => setName(e.target.value)}/>
                     <br></br>
                     <TextField error={emailEmpty} id="email" label="Email" variant="filled" value={email} onChange={e => setEmail(e.target.value)}/>
