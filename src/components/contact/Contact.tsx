@@ -54,15 +54,32 @@ export default function Contact() {
             'subject' : subject,
             'message' : msg
         }
+        if (name === "") {
+            setNameEmpty(true);
+        }
+        if (email === "" || !validateEmail(email)) {
+            setEmailEmpty(true);
+        }
+        if (subject === "") {
+            setSubjectEmpty(true);
+        }
+        if (msg === "") {
+            setMsgEmpty(true);
+        }
         if (name !== "") {
+            setNameEmpty(false);
             if (email !== "" && validateEmail(email)) {
+                setEmailEmpty(false);
                 if (subject !== "") {
+                    setSubjectEmpty(false);
                     if (msg !== "") {
+                        setMsgEmpty(false);
                         validInputs = true;
                     }
                 }
             }
         }
+        
         console.log(info, validInputs);
         //if verification check && recaptcha
         if (validInputs) {
